@@ -1,4 +1,4 @@
-package design
+package health
 
 import (
 	. "github.com/goadesign/goa/design"

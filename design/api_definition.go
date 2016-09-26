@@ -1,6 +1,7 @@
 package design
 
 import (
+	_ "github.com/goadesign/goa-cellar/design/health"
 	. "github.com/goadesign/goa/design"
 	. "github.com/goadesign/goa/design/apidsl"
 )

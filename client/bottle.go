@@ -41,8 +41,8 @@ func CreateBottlePath(accountID int) string {
 }
 
 // Record new bottle
-func (c *Client) CreateBottle(ctx context.Context, path string, payload *CreateBottlePayload, contentType string) (*http.Response, error) {
-	req, err := c.NewCreateBottleRequest(ctx, path, payload, contentType)
+func (c *Client) CreateBottle(ctx context.Context, path string, payload *CreateBottlePayload, x *bool, contentType string) (*http.Response, error) {
+	req, err := c.NewCreateBottleRequest(ctx, path, payload, x, contentType)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *Client) CreateBottle(ctx context.Context, path string, payload *CreateB
 }
 
 // NewCreateBottleRequest create the request corresponding to the create action endpoint of the bottle resource.
-func (c *Client) NewCreateBottleRequest(ctx context.Context, path string, payload *CreateBottlePayload, contentType string) (*http.Request, error) {
+func (c *Client) NewCreateBottleRequest(ctx context.Context, path string, payload *CreateBottlePayload, x *bool, contentType string) (*http.Request, error) {
 	var body bytes.Buffer
 	if contentType == "" {
 		contentType = "*/*" // Use default encoder
@@ -64,6 +64,12 @@ func (c *Client) NewCreateBottleRequest(ctx context.Context, path string, payloa
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp23 := strconv.FormatBool(*x)
+		values.Set("x", tmp23)
+	}
+	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("POST", u.String(), &body)
 	if err != nil {
 		return nil, err
@@ -84,8 +90,8 @@ func DeleteBottlePath(accountID int, bottleID int) string {
 }
 
 // DeleteBottle makes a request to the delete action endpoint of the bottle resource
-func (c *Client) DeleteBottle(ctx context.Context, path string) (*http.Response, error) {
-	req, err := c.NewDeleteBottleRequest(ctx, path)
+func (c *Client) DeleteBottle(ctx context.Context, path string, x *bool) (*http.Response, error) {
+	req, err := c.NewDeleteBottleRequest(ctx, path, x)
 	if err != nil {
 		return nil, err
 	}
@@ -93,12 +99,18 @@ func (c *Client) DeleteBottle(ctx context.Context, path string) (*http.Response,
 }
 
 // NewDeleteBottleRequest create the request corresponding to the delete action endpoint of the bottle resource.
-func (c *Client) NewDeleteBottleRequest(ctx context.Context, path string) (*http.Request, error) {
+func (c *Client) NewDeleteBottleRequest(ctx context.Context, path string, x *bool) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp24 := strconv.FormatBool(*x)
+		values.Set("x", tmp24)
+	}
+	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("DELETE", u.String(), nil)
 	if err != nil {
 		return nil, err
@@ -114,8 +126,8 @@ func ListBottlePath(accountID int) string {
 }
 
 // List all bottles in account optionally filtering by year
-func (c *Client) ListBottle(ctx context.Context, path string, years []int) (*http.Response, error) {
-	req, err := c.NewListBottleRequest(ctx, path, years)
+func (c *Client) ListBottle(ctx context.Context, path string, x *bool, years []int) (*http.Response, error) {
+	req, err := c.NewListBottleRequest(ctx, path, x, years)
 	if err != nil {
 		return nil, err
 	}
@@ -123,16 +135,20 @@ func (c *Client) ListBottle(ctx context.Context, path string, years []int) (*htt
 }
 
 // NewListBottleRequest create the request corresponding to the list action endpoint of the bottle resource.
-func (c *Client) NewListBottleRequest(ctx context.Context, path string, years []int) (*http.Request, error) {
+func (c *Client) NewListBottleRequest(ctx context.Context, path string, x *bool, years []int) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
+	if x != nil {
+		tmp25 := strconv.FormatBool(*x)
+		values.Set("x", tmp25)
+	}
 	for _, p := range years {
-		tmp14 := strconv.Itoa(p)
-		values.Add("years", tmp14)
+		tmp26 := strconv.Itoa(p)
+		values.Add("years", tmp26)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)
@@ -157,8 +173,8 @@ func RateBottlePath(accountID int, bottleID int) string {
 }
 
 // RateBottle makes a request to the rate action endpoint of the bottle resource
-func (c *Client) RateBottle(ctx context.Context, path string, payload *RateBottlePayload, contentType string) (*http.Response, error) {
-	req, err := c.NewRateBottleRequest(ctx, path, payload, contentType)
+func (c *Client) RateBottle(ctx context.Context, path string, payload *RateBottlePayload, x *bool, contentType string) (*http.Response, error) {
+	req, err := c.NewRateBottleRequest(ctx, path, payload, x, contentType)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +182,7 @@ func (c *Client) RateBottle(ctx context.Context, path string, payload *RateBottl
 }
 
 // NewRateBottleRequest create the request corresponding to the rate action endpoint of the bottle resource.
-func (c *Client) NewRateBottleRequest(ctx context.Context, path string, payload *RateBottlePayload, contentType string) (*http.Request, error) {
+func (c *Client) NewRateBottleRequest(ctx context.Context, path string, payload *RateBottlePayload, x *bool, contentType string) (*http.Request, error) {
 	var body bytes.Buffer
 	if contentType == "" {
 		contentType = "*/*" // Use default encoder
@@ -180,6 +196,12 @@ func (c *Client) NewRateBottleRequest(ctx context.Context, path string, payload 
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp27 := strconv.FormatBool(*x)
+		values.Set("x", tmp27)
+	}
+	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("PUT", u.String(), &body)
 	if err != nil {
 		return nil, err
@@ -200,8 +222,8 @@ func ShowBottlePath(accountID int, bottleID int) string {
 }
 
 // Retrieve bottle with given id
-func (c *Client) ShowBottle(ctx context.Context, path string) (*http.Response, error) {
-	req, err := c.NewShowBottleRequest(ctx, path)
+func (c *Client) ShowBottle(ctx context.Context, path string, x *bool) (*http.Response, error) {
+	req, err := c.NewShowBottleRequest(ctx, path, x)
 	if err != nil {
 		return nil, err
 	}
@@ -209,12 +231,18 @@ func (c *Client) ShowBottle(ctx context.Context, path string) (*http.Response, e
 }
 
 // NewShowBottleRequest create the request corresponding to the show action endpoint of the bottle resource.
-func (c *Client) NewShowBottleRequest(ctx context.Context, path string) (*http.Request, error) {
+func (c *Client) NewShowBottleRequest(ctx context.Context, path string, x *bool) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp28 := strconv.FormatBool(*x)
+		values.Set("x", tmp28)
+	}
+	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return nil, err
@@ -231,8 +259,8 @@ func UpdateBottlePath(accountID int, bottleID int) string {
 }
 
 // UpdateBottle makes a request to the update action endpoint of the bottle resource
-func (c *Client) UpdateBottle(ctx context.Context, path string, payload *BottlePayload, contentType string) (*http.Response, error) {
-	req, err := c.NewUpdateBottleRequest(ctx, path, payload, contentType)
+func (c *Client) UpdateBottle(ctx context.Context, path string, payload *BottlePayload, x *bool, contentType string) (*http.Response, error) {
+	req, err := c.NewUpdateBottleRequest(ctx, path, payload, x, contentType)
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +268,7 @@ func (c *Client) UpdateBottle(ctx context.Context, path string, payload *BottleP
 }
 
 // NewUpdateBottleRequest create the request corresponding to the update action endpoint of the bottle resource.
-func (c *Client) NewUpdateBottleRequest(ctx context.Context, path string, payload *BottlePayload, contentType string) (*http.Request, error) {
+func (c *Client) NewUpdateBottleRequest(ctx context.Context, path string, payload *BottlePayload, x *bool, contentType string) (*http.Request, error) {
 	var body bytes.Buffer
 	if contentType == "" {
 		contentType = "*/*" // Use default encoder
@@ -254,6 +282,12 @@ func (c *Client) NewUpdateBottleRequest(ctx context.Context, path string, payloa
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp29 := strconv.FormatBool(*x)
+		values.Set("x", tmp29)
+	}
+	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("PATCH", u.String(), &body)
 	if err != nil {
 		return nil, err
@@ -274,12 +308,18 @@ func WatchBottlePath(accountID int, bottleID int) string {
 }
 
 // Retrieve bottle with given id
-func (c *Client) WatchBottle(ctx context.Context, path string) (*websocket.Conn, error) {
+func (c *Client) WatchBottle(ctx context.Context, path string, x *bool) (*websocket.Conn, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "ws"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp30 := strconv.FormatBool(*x)
+		values.Set("x", tmp30)
+	}
+	u.RawQuery = values.Encode()
 	url_ := u.String()
 	cfg, err := websocket.NewConfig(url_, url_)
 	if err != nil {

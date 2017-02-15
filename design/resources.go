@@ -27,6 +27,7 @@ var _ = Resource("account", func() {
 			Param("accountID", Integer, "Account ID", func() {
 				Minimum(1)
 			})
+			Param("x", Boolean, "Output as text")
 		})
 		Response(OK)
 		Response(NotFound)

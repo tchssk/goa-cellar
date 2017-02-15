@@ -50,7 +50,9 @@ type (
 	// ShowAccountCommand is the command line data structure for the show action of account
 	ShowAccountCommand struct {
 		// Account ID
-		AccountID   int
+		AccountID int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
@@ -68,15 +70,19 @@ type (
 		Payload     string
 		ContentType string
 		// Account ID
-		AccountID   int
+		AccountID int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
 	// DeleteBottleCommand is the command line data structure for the delete action of bottle
 	DeleteBottleCommand struct {
 		// Account ID
-		AccountID   int
-		BottleID    int
+		AccountID int
+		BottleID  int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
@@ -84,6 +90,8 @@ type (
 	ListBottleCommand struct {
 		// Account ID
 		AccountID int
+		// Output as text
+		X string
 		// Filter by years
 		Years       []int
 		PrettyPrint bool
@@ -94,16 +102,20 @@ type (
 		Payload     string
 		ContentType string
 		// Account ID
-		AccountID   int
-		BottleID    int
+		AccountID int
+		BottleID  int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
 	// ShowBottleCommand is the command line data structure for the show action of bottle
 	ShowBottleCommand struct {
 		// Account ID
-		AccountID   int
-		BottleID    int
+		AccountID int
+		BottleID  int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
@@ -112,16 +124,20 @@ type (
 		Payload     string
 		ContentType string
 		// Account ID
-		AccountID   int
-		BottleID    int
+		AccountID int
+		BottleID  int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
 	// WatchBottleCommand is the command line data structure for the watch action of bottle
 	WatchBottleCommand struct {
 		// Account ID
-		AccountID   int
-		BottleID    int
+		AccountID int
+		BottleID  int
+		// Output as text
+		X           string
 		PrettyPrint bool
 	}
 
@@ -661,7 +677,16 @@ func (cmd *ShowAccountCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.ShowAccount(ctx, path)
+	var tmp14 *bool
+	if cmd.X != "" {
+		var err error
+		tmp14, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.ShowAccount(ctx, path, tmp14)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -675,6 +700,8 @@ func (cmd *ShowAccountCommand) Run(c *client.Client, args []string) error {
 func (cmd *ShowAccountCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the UpdateAccountCommand command.
@@ -729,7 +756,16 @@ func (cmd *CreateBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.CreateBottle(ctx, path, &payload, cmd.ContentType)
+	var tmp15 *bool
+	if cmd.X != "" {
+		var err error
+		tmp15, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.CreateBottle(ctx, path, &payload, tmp15, cmd.ContentType)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -745,6 +781,8 @@ func (cmd *CreateBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().StringVar(&cmd.ContentType, "content", "", "Request content type override, e.g. 'application/x-www-form-urlencoded'")
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the DeleteBottleCommand command.
@@ -757,7 +795,16 @@ func (cmd *DeleteBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.DeleteBottle(ctx, path)
+	var tmp16 *bool
+	if cmd.X != "" {
+		var err error
+		tmp16, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.DeleteBottle(ctx, path, tmp16)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -773,6 +820,8 @@ func (cmd *DeleteBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the ListBottleCommand command.
@@ -785,7 +834,16 @@ func (cmd *ListBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.ListBottle(ctx, path, cmd.Years)
+	var tmp17 *bool
+	if cmd.X != "" {
+		var err error
+		tmp17, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.ListBottle(ctx, path, tmp17, cmd.Years)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -799,6 +857,8 @@ func (cmd *ListBottleCommand) Run(c *client.Client, args []string) error {
 func (cmd *ListBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 	var years []int
 	cc.Flags().IntSliceVar(&cmd.Years, "years", years, `Filter by years`)
 }
@@ -820,7 +880,16 @@ func (cmd *RateBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.RateBottle(ctx, path, &payload, cmd.ContentType)
+	var tmp18 *bool
+	if cmd.X != "" {
+		var err error
+		tmp18, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.RateBottle(ctx, path, &payload, tmp18, cmd.ContentType)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -838,6 +907,8 @@ func (cmd *RateBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client)
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the ShowBottleCommand command.
@@ -850,7 +921,16 @@ func (cmd *ShowBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.ShowBottle(ctx, path)
+	var tmp19 *bool
+	if cmd.X != "" {
+		var err error
+		tmp19, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.ShowBottle(ctx, path, tmp19)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -866,6 +946,8 @@ func (cmd *ShowBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client)
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the UpdateBottleCommand command.
@@ -885,7 +967,16 @@ func (cmd *UpdateBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.UpdateBottle(ctx, path, &payload, cmd.ContentType)
+	var tmp20 *bool
+	if cmd.X != "" {
+		var err error
+		tmp20, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	resp, err := c.UpdateBottle(ctx, path, &payload, tmp20, cmd.ContentType)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -903,6 +994,8 @@ func (cmd *UpdateBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run establishes a websocket connection for the WatchBottleCommand command.
@@ -915,7 +1008,16 @@ func (cmd *WatchBottleCommand) Run(c *client.Client, args []string) error {
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	ws, err := c.WatchBottle(ctx, path)
+	var tmp21 *bool
+	if cmd.X != "" {
+		var err error
+		tmp21, err = boolVal(cmd.X)
+		if err != nil {
+			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
+			return err
+		}
+	}
+	ws, err := c.WatchBottle(ctx, path, tmp21)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -932,6 +1034,8 @@ func (cmd *WatchBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
+	var x string
+	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the HealthHealthCommand command.

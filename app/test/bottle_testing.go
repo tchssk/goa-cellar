@@ -28,7 +28,7 @@ import (
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, payload *app.CreateBottlePayload) (http.ResponseWriter, error) {
+func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, payload *app.CreateBottlePayload) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -58,8 +58,14 @@ func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("POST", u.String(), nil)
 	if err != nil {
@@ -67,6 +73,10 @@ func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -104,7 +114,7 @@ func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, payload *app.CreateBottlePayload) http.ResponseWriter {
+func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, payload *app.CreateBottlePayload) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -135,8 +145,14 @@ func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("POST", u.String(), nil)
 	if err != nil {
@@ -144,6 +160,10 @@ func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -173,7 +193,7 @@ func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, payload *app.CreateBottlePayload) http.ResponseWriter {
+func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, payload *app.CreateBottlePayload) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -204,8 +224,14 @@ func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("POST", u.String(), nil)
 	if err != nil {
@@ -213,6 +239,10 @@ func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -242,7 +272,7 @@ func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) (http.ResponseWriter, error) {
+func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -262,8 +292,14 @@ func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("DELETE", u.String(), nil)
 	if err != nil {
@@ -272,6 +308,10 @@ func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -308,7 +348,7 @@ func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) http.ResponseWriter {
+func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -328,8 +368,14 @@ func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("DELETE", u.String(), nil)
 	if err != nil {
@@ -338,6 +384,10 @@ func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -366,7 +416,7 @@ func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) http.ResponseWriter {
+func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -386,8 +436,14 @@ func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("DELETE", u.String(), nil)
 	if err != nil {
@@ -396,6 +452,10 @@ func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -424,7 +484,7 @@ func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, years []int) (http.ResponseWriter, error) {
+func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, years []int) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -445,6 +505,10 @@ func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 	// Setup request context
 	rw := httptest.NewRecorder()
 	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -462,6 +526,10 @@ func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -505,7 +573,7 @@ func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, years []int) http.ResponseWriter {
+func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, years []int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -526,6 +594,10 @@ func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 	// Setup request context
 	rw := httptest.NewRecorder()
 	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -543,6 +615,10 @@ func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -578,7 +654,7 @@ func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, years []int) (http.ResponseWriter, app.BottleCollection) {
+func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, years []int) (http.ResponseWriter, app.BottleCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -599,6 +675,10 @@ func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 	// Setup request context
 	rw := httptest.NewRecorder()
 	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -616,6 +696,10 @@ func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -663,7 +747,7 @@ func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, years []int) (http.ResponseWriter, app.BottleTinyCollection) {
+func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, x *bool, years []int) (http.ResponseWriter, app.BottleTinyCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -684,6 +768,10 @@ func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 	// Setup request context
 	rw := httptest.NewRecorder()
 	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -701,6 +789,10 @@ func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	{
 		sliceVal := make([]string, len(years))
 		for i, v := range years {
@@ -748,7 +840,7 @@ func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, payload *app.RateBottlePayload) (http.ResponseWriter, error) {
+func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool, payload *app.RateBottlePayload) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -778,8 +870,14 @@ func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v/actions/rate", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v/actions/rate", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("PUT", u.String(), nil)
 	if err != nil {
@@ -788,6 +886,10 @@ func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -825,7 +927,7 @@ func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, payload *app.RateBottlePayload) http.ResponseWriter {
+func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool, payload *app.RateBottlePayload) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -856,8 +958,14 @@ func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v/actions/rate", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v/actions/rate", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("PUT", u.String(), nil)
 	if err != nil {
@@ -866,6 +974,10 @@ func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -895,7 +1007,7 @@ func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, payload *app.RateBottlePayload) http.ResponseWriter {
+func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool, payload *app.RateBottlePayload) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -926,8 +1038,14 @@ func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v/actions/rate", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v/actions/rate", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("PUT", u.String(), nil)
 	if err != nil {
@@ -936,6 +1054,10 @@ func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -965,7 +1087,7 @@ func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) (http.ResponseWriter, error) {
+func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -985,8 +1107,14 @@ func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -995,6 +1123,10 @@ func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1031,7 +1163,7 @@ func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) http.ResponseWriter {
+func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1051,8 +1183,14 @@ func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -1061,6 +1199,10 @@ func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1089,7 +1231,7 @@ func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) (http.ResponseWriter, *app.Bottle) {
+func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) (http.ResponseWriter, *app.Bottle) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1109,8 +1251,14 @@ func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -1119,6 +1267,10 @@ func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1159,7 +1311,7 @@ func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) (http.ResponseWriter, *app.BottleFull) {
+func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) (http.ResponseWriter, *app.BottleFull) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1179,8 +1331,14 @@ func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Se
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -1189,6 +1347,10 @@ func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Se
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1229,7 +1391,7 @@ func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Se
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) (http.ResponseWriter, *app.BottleTiny) {
+func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) (http.ResponseWriter, *app.BottleTiny) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1249,8 +1411,14 @@ func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -1259,6 +1427,10 @@ func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1299,7 +1471,7 @@ func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, payload *app.BottlePayload) (http.ResponseWriter, error) {
+func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool, payload *app.BottlePayload) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1329,8 +1501,14 @@ func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("PATCH", u.String(), nil)
 	if err != nil {
@@ -1339,6 +1517,10 @@ func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1376,7 +1558,7 @@ func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, payload *app.BottlePayload) http.ResponseWriter {
+func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool, payload *app.BottlePayload) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1407,8 +1589,14 @@ func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("PATCH", u.String(), nil)
 	if err != nil {
@@ -1417,6 +1605,10 @@ func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1446,7 +1638,7 @@ func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, payload *app.BottlePayload) http.ResponseWriter {
+func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool, payload *app.BottlePayload) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1477,8 +1669,14 @@ func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("PATCH", u.String(), nil)
 	if err != nil {
@@ -1487,6 +1685,10 @@ func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -1516,7 +1718,7 @@ func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func WatchBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int) (http.ResponseWriter, error) {
+func WatchBottleBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.BottleController, accountID int, bottleID int, x *bool) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1536,8 +1738,14 @@ func WatchBottleBadRequest(t goatest.TInterface, ctx context.Context, service *g
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v/bottles/%v/watch", accountID, bottleID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v/bottles/%v/watch", accountID, bottleID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -1546,6 +1754,10 @@ func WatchBottleBadRequest(t goatest.TInterface, ctx context.Context, service *g
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
 	prms["bottleID"] = []string{fmt.Sprintf("%v", bottleID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}

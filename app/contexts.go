@@ -186,6 +186,7 @@ type ShowAccountContext struct {
 	*goa.ResponseData
 	*goa.RequestData
 	AccountID int
+	X         *bool
 }
 
 // NewShowAccountContext parses the incoming request URL and body, performs validations and creates the
@@ -207,6 +208,16 @@ func NewShowAccountContext(ctx context.Context, r *http.Request, service *goa.Se
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp3 := &x
+			rctx.X = tmp3
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
 		}
 	}
 	return &rctx, err
@@ -333,6 +344,7 @@ type CreateBottleContext struct {
 	*goa.ResponseData
 	*goa.RequestData
 	AccountID int
+	X         *bool
 	Payload   *CreateBottlePayload
 }
 
@@ -355,6 +367,16 @@ func NewCreateBottleContext(ctx context.Context, r *http.Request, service *goa.S
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp6 := &x
+			rctx.X = tmp6
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
 		}
 	}
 	return &rctx, err
@@ -580,6 +602,7 @@ type DeleteBottleContext struct {
 	*goa.RequestData
 	AccountID int
 	BottleID  int
+	X         *bool
 }
 
 // NewDeleteBottleContext parses the incoming request URL and body, performs validations and creates the
@@ -612,6 +635,16 @@ func NewDeleteBottleContext(ctx context.Context, r *http.Request, service *goa.S
 			err = goa.MergeErrors(err, goa.InvalidParamTypeError("bottleID", rawBottleID, "integer"))
 		}
 	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp9 := &x
+			rctx.X = tmp9
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
+		}
+	}
 	return &rctx, err
 }
 
@@ -639,6 +672,7 @@ type ListBottleContext struct {
 	*goa.ResponseData
 	*goa.RequestData
 	AccountID int
+	X         *bool
 	Years     []int
 }
 
@@ -661,6 +695,16 @@ func NewListBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp11 := &x
+			rctx.X = tmp11
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
 		}
 	}
 	paramYears := req.Params["years"]
@@ -715,6 +759,7 @@ type RateBottleContext struct {
 	*goa.RequestData
 	AccountID int
 	BottleID  int
+	X         *bool
 	Payload   *RateBottlePayload
 }
 
@@ -746,6 +791,16 @@ func NewRateBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 			rctx.BottleID = bottleID
 		} else {
 			err = goa.MergeErrors(err, goa.InvalidParamTypeError("bottleID", rawBottleID, "integer"))
+		}
+	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp15 := &x
+			rctx.X = tmp15
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
 		}
 	}
 	return &rctx, err
@@ -826,6 +881,7 @@ type ShowBottleContext struct {
 	*goa.RequestData
 	AccountID int
 	BottleID  int
+	X         *bool
 }
 
 // NewShowBottleContext parses the incoming request URL and body, performs validations and creates the
@@ -856,6 +912,16 @@ func NewShowBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 			rctx.BottleID = bottleID
 		} else {
 			err = goa.MergeErrors(err, goa.InvalidParamTypeError("bottleID", rawBottleID, "integer"))
+		}
+	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp18 := &x
+			rctx.X = tmp18
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
 		}
 	}
 	return &rctx, err
@@ -898,6 +964,7 @@ type UpdateBottleContext struct {
 	*goa.RequestData
 	AccountID int
 	BottleID  int
+	X         *bool
 	Payload   *BottlePayload
 }
 
@@ -931,6 +998,16 @@ func NewUpdateBottleContext(ctx context.Context, r *http.Request, service *goa.S
 			err = goa.MergeErrors(err, goa.InvalidParamTypeError("bottleID", rawBottleID, "integer"))
 		}
 	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp21 := &x
+			rctx.X = tmp21
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
+		}
+	}
 	return &rctx, err
 }
 
@@ -959,6 +1036,7 @@ type WatchBottleContext struct {
 	*goa.RequestData
 	AccountID int
 	BottleID  int
+	X         *bool
 }
 
 // NewWatchBottleContext parses the incoming request URL and body, performs validations and creates the
@@ -989,6 +1067,16 @@ func NewWatchBottleContext(ctx context.Context, r *http.Request, service *goa.Se
 			rctx.BottleID = bottleID
 		} else {
 			err = goa.MergeErrors(err, goa.InvalidParamTypeError("bottleID", rawBottleID, "integer"))
+		}
+	}
+	paramX := req.Params["x"]
+	if len(paramX) > 0 {
+		rawX := paramX[0]
+		if x, err2 := strconv.ParseBool(rawX); err2 == nil {
+			tmp24 := &x
+			rctx.X = tmp24
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("x", rawX, "boolean"))
 		}
 	}
 	return &rctx, err

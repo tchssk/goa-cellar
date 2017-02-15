@@ -133,8 +133,8 @@ func ShowAccountPath(accountID int) string {
 }
 
 // Retrieve account with given id. IDs 1 and 2 pre-exist in the system.
-func (c *Client) ShowAccount(ctx context.Context, path string) (*http.Response, error) {
-	req, err := c.NewShowAccountRequest(ctx, path)
+func (c *Client) ShowAccount(ctx context.Context, path string, x *bool) (*http.Response, error) {
+	req, err := c.NewShowAccountRequest(ctx, path, x)
 	if err != nil {
 		return nil, err
 	}
@@ -142,12 +142,18 @@ func (c *Client) ShowAccount(ctx context.Context, path string) (*http.Response, 
 }
 
 // NewShowAccountRequest create the request corresponding to the show action endpoint of the account resource.
-func (c *Client) NewShowAccountRequest(ctx context.Context, path string) (*http.Request, error) {
+func (c *Client) NewShowAccountRequest(ctx context.Context, path string, x *bool) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	if x != nil {
+		tmp22 := strconv.FormatBool(*x)
+		values.Set("x", tmp22)
+	}
+	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return nil, err

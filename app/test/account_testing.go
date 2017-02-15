@@ -554,7 +554,7 @@ func ListAccountOKTiny(t goatest.TInterface, ctx context.Context, service *goa.S
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowAccountBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int) (http.ResponseWriter, error) {
+func ShowAccountBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int, x *bool) (http.ResponseWriter, error) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -574,8 +574,14 @@ func ShowAccountBadRequest(t goatest.TInterface, ctx context.Context, service *g
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -583,6 +589,10 @@ func ShowAccountBadRequest(t goatest.TInterface, ctx context.Context, service *g
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -619,7 +629,7 @@ func ShowAccountBadRequest(t goatest.TInterface, ctx context.Context, service *g
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowAccountNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int) http.ResponseWriter {
+func ShowAccountNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int, x *bool) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -639,8 +649,14 @@ func ShowAccountNotFound(t goatest.TInterface, ctx context.Context, service *goa
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -648,6 +664,10 @@ func ShowAccountNotFound(t goatest.TInterface, ctx context.Context, service *goa
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -676,7 +696,7 @@ func ShowAccountNotFound(t goatest.TInterface, ctx context.Context, service *goa
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowAccountOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int) (http.ResponseWriter, *app.Account) {
+func ShowAccountOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int, x *bool) (http.ResponseWriter, *app.Account) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -696,8 +716,14 @@ func ShowAccountOK(t goatest.TInterface, ctx context.Context, service *goa.Servi
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -705,6 +731,10 @@ func ShowAccountOK(t goatest.TInterface, ctx context.Context, service *goa.Servi
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -745,7 +775,7 @@ func ShowAccountOK(t goatest.TInterface, ctx context.Context, service *goa.Servi
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowAccountOKLink(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int) (http.ResponseWriter, *app.AccountLink) {
+func ShowAccountOKLink(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int, x *bool) (http.ResponseWriter, *app.AccountLink) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -765,8 +795,14 @@ func ShowAccountOKLink(t goatest.TInterface, ctx context.Context, service *goa.S
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -774,6 +810,10 @@ func ShowAccountOKLink(t goatest.TInterface, ctx context.Context, service *goa.S
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -814,7 +854,7 @@ func ShowAccountOKLink(t goatest.TInterface, ctx context.Context, service *goa.S
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowAccountOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int) (http.ResponseWriter, *app.AccountTiny) {
+func ShowAccountOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.AccountController, accountID int, x *bool) (http.ResponseWriter, *app.AccountTiny) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -834,8 +874,14 @@ func ShowAccountOKTiny(t goatest.TInterface, ctx context.Context, service *goa.S
 
 	// Setup request context
 	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		query["x"] = sliceVal
+	}
 	u := &url.URL{
-		Path: fmt.Sprintf("/cellar/accounts/%v", accountID),
+		Path:     fmt.Sprintf("/cellar/accounts/%v", accountID),
+		RawQuery: query.Encode(),
 	}
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
@@ -843,6 +889,10 @@ func ShowAccountOKTiny(t goatest.TInterface, ctx context.Context, service *goa.S
 	}
 	prms := url.Values{}
 	prms["accountID"] = []string{fmt.Sprintf("%v", accountID)}
+	if x != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *x)}
+		prms["x"] = sliceVal
+	}
 	if ctx == nil {
 		ctx = context.Background()
 	}

@@ -527,6 +527,11 @@ paths:
         name: accountID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       responses:
         "200":
           description: OK
@@ -582,6 +587,11 @@ paths:
         name: accountID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       - collectionFormat: multi
         description: Filter by years
         in: query
@@ -616,6 +626,11 @@ paths:
         name: accountID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       - in: body
         name: payload
         required: true
@@ -654,6 +669,11 @@ paths:
         name: bottleID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       responses:
         "204":
           description: No Content
@@ -682,6 +702,11 @@ paths:
         name: bottleID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       responses:
         "200":
           description: OK
@@ -711,6 +736,11 @@ paths:
         name: bottleID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       - in: body
         name: payload
         required: true
@@ -744,6 +774,11 @@ paths:
         name: bottleID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       - in: body
         name: payload
         required: true
@@ -778,6 +813,11 @@ paths:
         name: bottleID
         required: true
         type: integer
+      - description: Output as text
+        in: query
+        name: x
+        required: false
+        type: boolean
       responses:
         "101":
           description: Switching Protocols

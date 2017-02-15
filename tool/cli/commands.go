@@ -52,7 +52,7 @@ type (
 		// Account ID
 		AccountID int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -72,7 +72,7 @@ type (
 		// Account ID
 		AccountID int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -82,7 +82,7 @@ type (
 		AccountID int
 		BottleID  int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -91,7 +91,7 @@ type (
 		// Account ID
 		AccountID int
 		// Output as text
-		X string
+		X bool
 		// Filter by years
 		Years       []int
 		PrettyPrint bool
@@ -105,7 +105,7 @@ type (
 		AccountID int
 		BottleID  int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -115,7 +115,7 @@ type (
 		AccountID int
 		BottleID  int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -127,7 +127,7 @@ type (
 		AccountID int
 		BottleID  int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -137,7 +137,7 @@ type (
 		AccountID int
 		BottleID  int
 		// Output as text
-		X           string
+		X           bool
 		PrettyPrint bool
 	}
 
@@ -678,9 +678,9 @@ func (cmd *ShowAccountCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp14 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp14, err = boolVal(cmd.X)
+		tmp14, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -700,8 +700,8 @@ func (cmd *ShowAccountCommand) Run(c *client.Client, args []string) error {
 func (cmd *ShowAccountCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the UpdateAccountCommand command.
@@ -757,9 +757,9 @@ func (cmd *CreateBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp15 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp15, err = boolVal(cmd.X)
+		tmp15, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -781,8 +781,8 @@ func (cmd *CreateBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().StringVar(&cmd.ContentType, "content", "", "Request content type override, e.g. 'application/x-www-form-urlencoded'")
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the DeleteBottleCommand command.
@@ -796,9 +796,9 @@ func (cmd *DeleteBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp16 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp16, err = boolVal(cmd.X)
+		tmp16, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -820,8 +820,8 @@ func (cmd *DeleteBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the ListBottleCommand command.
@@ -835,9 +835,9 @@ func (cmd *ListBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp17 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp17, err = boolVal(cmd.X)
+		tmp17, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -857,8 +857,8 @@ func (cmd *ListBottleCommand) Run(c *client.Client, args []string) error {
 func (cmd *ListBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 	var years []int
 	cc.Flags().IntSliceVar(&cmd.Years, "years", years, `Filter by years`)
 }
@@ -881,9 +881,9 @@ func (cmd *RateBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp18 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp18, err = boolVal(cmd.X)
+		tmp18, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -907,8 +907,8 @@ func (cmd *RateBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client)
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the ShowBottleCommand command.
@@ -922,9 +922,9 @@ func (cmd *ShowBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp19 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp19, err = boolVal(cmd.X)
+		tmp19, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -946,8 +946,8 @@ func (cmd *ShowBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client)
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the UpdateBottleCommand command.
@@ -968,9 +968,9 @@ func (cmd *UpdateBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp20 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp20, err = boolVal(cmd.X)
+		tmp20, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -994,8 +994,8 @@ func (cmd *UpdateBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run establishes a websocket connection for the WatchBottleCommand command.
@@ -1009,9 +1009,9 @@ func (cmd *WatchBottleCommand) Run(c *client.Client, args []string) error {
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
 	var tmp21 *bool
-	if cmd.X != "" {
+	if fmt.Sprintf("%t", cmd.X) != "" {
 		var err error
-		tmp21, err = boolVal(cmd.X)
+		tmp21, err = boolVal(fmt.Sprintf("%t", cmd.X))
 		if err != nil {
 			goa.LogError(ctx, "failed to parse flag into *bool value", "flag", "--x", "err", err)
 			return err
@@ -1034,8 +1034,8 @@ func (cmd *WatchBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var bottleID int
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
-	var x string
-	cc.Flags().StringVar(&cmd.X, "x", x, `Output as text`)
+	var x bool
+	cc.Flags().BoolVar(&cmd.X, "x", x, `Output as text`)
 }
 
 // Run makes the HTTP request corresponding to the HealthHealthCommand command.

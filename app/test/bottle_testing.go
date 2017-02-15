@@ -71,7 +71,7 @@ func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	createCtx, err := app.NewCreateBottleContext(goaCtx, service)
+	createCtx, err := app.NewCreateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -82,7 +82,7 @@ func CreateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
@@ -148,7 +148,7 @@ func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	createCtx, err := app.NewCreateBottleContext(goaCtx, service)
+	createCtx, err := app.NewCreateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -159,7 +159,7 @@ func CreateBottleCreated(t goatest.TInterface, ctx context.Context, service *goa
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 201 {
 		t.Errorf("invalid response status code: got %+v, expected 201", rw.Code)
@@ -217,7 +217,7 @@ func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	createCtx, err := app.NewCreateBottleContext(goaCtx, service)
+	createCtx, err := app.NewCreateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -228,7 +228,7 @@ func CreateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 404 {
 		t.Errorf("invalid response status code: got %+v, expected 404", rw.Code)
@@ -276,7 +276,7 @@ func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	deleteCtx, err := app.NewDeleteBottleContext(goaCtx, service)
+	deleteCtx, err := app.NewDeleteBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -286,7 +286,7 @@ func DeleteBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
@@ -342,7 +342,7 @@ func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	deleteCtx, err := app.NewDeleteBottleContext(goaCtx, service)
+	deleteCtx, err := app.NewDeleteBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -352,7 +352,7 @@ func DeleteBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 204 {
 		t.Errorf("invalid response status code: got %+v, expected 204", rw.Code)
@@ -400,7 +400,7 @@ func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	deleteCtx, err := app.NewDeleteBottleContext(goaCtx, service)
+	deleteCtx, err := app.NewDeleteBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -410,7 +410,7 @@ func DeleteBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 404 {
 		t.Errorf("invalid response status code: got %+v, expected 404", rw.Code)
@@ -473,7 +473,7 @@ func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	listCtx, err := app.NewListBottleContext(goaCtx, service)
+	listCtx, err := app.NewListBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -483,7 +483,7 @@ func ListBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
@@ -554,7 +554,7 @@ func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	listCtx, err := app.NewListBottleContext(goaCtx, service)
+	listCtx, err := app.NewListBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -564,7 +564,7 @@ func ListBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 404 {
 		t.Errorf("invalid response status code: got %+v, expected 404", rw.Code)
@@ -627,7 +627,7 @@ func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	listCtx, err := app.NewListBottleContext(goaCtx, service)
+	listCtx, err := app.NewListBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -637,7 +637,7 @@ func ListBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 200 {
 		t.Errorf("invalid response status code: got %+v, expected 200", rw.Code)
@@ -712,7 +712,7 @@ func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	listCtx, err := app.NewListBottleContext(goaCtx, service)
+	listCtx, err := app.NewListBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -722,7 +722,7 @@ func ListBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 200 {
 		t.Errorf("invalid response status code: got %+v, expected 200", rw.Code)
@@ -792,7 +792,7 @@ func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	rateCtx, err := app.NewRateBottleContext(goaCtx, service)
+	rateCtx, err := app.NewRateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -803,7 +803,7 @@ func RateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
@@ -870,7 +870,7 @@ func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	rateCtx, err := app.NewRateBottleContext(goaCtx, service)
+	rateCtx, err := app.NewRateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -881,7 +881,7 @@ func RateBottleNoContent(t goatest.TInterface, ctx context.Context, service *goa
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 204 {
 		t.Errorf("invalid response status code: got %+v, expected 204", rw.Code)
@@ -940,7 +940,7 @@ func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	rateCtx, err := app.NewRateBottleContext(goaCtx, service)
+	rateCtx, err := app.NewRateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -951,7 +951,7 @@ func RateBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 404 {
 		t.Errorf("invalid response status code: got %+v, expected 404", rw.Code)
@@ -999,7 +999,7 @@ func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	showCtx, err := app.NewShowBottleContext(goaCtx, service)
+	showCtx, err := app.NewShowBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1009,7 +1009,7 @@ func ShowBottleBadRequest(t goatest.TInterface, ctx context.Context, service *go
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
@@ -1065,7 +1065,7 @@ func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	showCtx, err := app.NewShowBottleContext(goaCtx, service)
+	showCtx, err := app.NewShowBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1075,7 +1075,7 @@ func ShowBottleNotFound(t goatest.TInterface, ctx context.Context, service *goa.
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 404 {
 		t.Errorf("invalid response status code: got %+v, expected 404", rw.Code)
@@ -1123,7 +1123,7 @@ func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	showCtx, err := app.NewShowBottleContext(goaCtx, service)
+	showCtx, err := app.NewShowBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1133,7 +1133,7 @@ func ShowBottleOK(t goatest.TInterface, ctx context.Context, service *goa.Servic
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 200 {
 		t.Errorf("invalid response status code: got %+v, expected 200", rw.Code)
@@ -1193,7 +1193,7 @@ func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Se
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	showCtx, err := app.NewShowBottleContext(goaCtx, service)
+	showCtx, err := app.NewShowBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1203,7 +1203,7 @@ func ShowBottleOKFull(t goatest.TInterface, ctx context.Context, service *goa.Se
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 200 {
 		t.Errorf("invalid response status code: got %+v, expected 200", rw.Code)
@@ -1263,7 +1263,7 @@ func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	showCtx, err := app.NewShowBottleContext(goaCtx, service)
+	showCtx, err := app.NewShowBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1273,7 +1273,7 @@ func ShowBottleOKTiny(t goatest.TInterface, ctx context.Context, service *goa.Se
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 200 {
 		t.Errorf("invalid response status code: got %+v, expected 200", rw.Code)
@@ -1343,7 +1343,7 @@ func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	updateCtx, err := app.NewUpdateBottleContext(goaCtx, service)
+	updateCtx, err := app.NewUpdateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1354,7 +1354,7 @@ func UpdateBottleBadRequest(t goatest.TInterface, ctx context.Context, service *
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
@@ -1421,7 +1421,7 @@ func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	updateCtx, err := app.NewUpdateBottleContext(goaCtx, service)
+	updateCtx, err := app.NewUpdateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1432,7 +1432,7 @@ func UpdateBottleNoContent(t goatest.TInterface, ctx context.Context, service *g
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 204 {
 		t.Errorf("invalid response status code: got %+v, expected 204", rw.Code)
@@ -1491,7 +1491,7 @@ func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	updateCtx, err := app.NewUpdateBottleContext(goaCtx, service)
+	updateCtx, err := app.NewUpdateBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1502,7 +1502,7 @@ func UpdateBottleNotFound(t goatest.TInterface, ctx context.Context, service *go
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 404 {
 		t.Errorf("invalid response status code: got %+v, expected 404", rw.Code)
@@ -1550,7 +1550,7 @@ func WatchBottleBadRequest(t goatest.TInterface, ctx context.Context, service *g
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "BottleTest"), rw, req, prms)
-	watchCtx, err := app.NewWatchBottleContext(goaCtx, service)
+	watchCtx, err := app.NewWatchBottleContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -1560,7 +1560,7 @@ func WatchBottleBadRequest(t goatest.TInterface, ctx context.Context, service *g
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)

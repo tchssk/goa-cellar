@@ -60,7 +60,7 @@ func HealthHealthOK(t goatest.TInterface, ctx context.Context, service *goa.Serv
 		ctx = context.Background()
 	}
 	goaCtx := goa.NewContext(goa.WithAction(ctx, "HealthTest"), rw, req, prms)
-	healthCtx, err := app.NewHealthHealthContext(goaCtx, service)
+	healthCtx, err := app.NewHealthHealthContext(goaCtx, req, service)
 	if err != nil {
 		panic("invalid test data " + err.Error()) // bug
 	}
@@ -70,7 +70,7 @@ func HealthHealthOK(t goatest.TInterface, ctx context.Context, service *goa.Serv
 
 	// Validate response
 	if err != nil {
-		t.Fatalf("controller returned %s, logs:\n%s", err, logBuf.String())
+		t.Fatalf("controller returned %+v, logs:\n%s", err, logBuf.String())
 	}
 	if rw.Code != 200 {
 		t.Errorf("invalid response status code: got %+v, expected 200", rw.Code)

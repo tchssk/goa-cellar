@@ -629,8 +629,8 @@ func (ctx *DeleteBottleContext) NotFound() error {
 	return nil
 }
 
-// ListBottleContext provides the bottle list action context.
-type ListBottleContext struct {
+// ListbarBottleContext provides the bottle listbar action context.
+type ListbarBottleContext struct {
 	context.Context
 	*goa.ResponseData
 	*goa.RequestData
@@ -638,15 +638,15 @@ type ListBottleContext struct {
 	Years     []int
 }
 
-// NewListBottleContext parses the incoming request URL and body, performs validations and creates the
-// context used by the bottle controller list action.
-func NewListBottleContext(ctx context.Context, r *http.Request, service *goa.Service) (*ListBottleContext, error) {
+// NewListbarBottleContext parses the incoming request URL and body, performs validations and creates the
+// context used by the bottle controller listbar action.
+func NewListbarBottleContext(ctx context.Context, r *http.Request, service *goa.Service) (*ListbarBottleContext, error) {
 	var err error
 	resp := goa.ContextResponse(ctx)
 	resp.Service = service
 	req := goa.ContextRequest(ctx)
 	req.Request = r
-	rctx := ListBottleContext{Context: ctx, ResponseData: resp, RequestData: req}
+	rctx := ListbarBottleContext{Context: ctx, ResponseData: resp, RequestData: req}
 	paramAccountID := req.Params["accountID"]
 	if len(paramAccountID) > 0 {
 		rawAccountID := paramAccountID[0]
@@ -675,8 +675,8 @@ func NewListBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 }
 
 // OK sends a HTTP response with status code 200.
-func (ctx *ListBottleContext) OK(r BottleCollection) error {
-	ctx.ResponseData.Header().Set("Content-Type", "application/vnd.bottle+json; type=collection")
+func (ctx *ListbarBottleContext) OK(r BottleCollection) error {
+	ctx.ResponseData.Header().Set("Content-Type", "foo")
 	if r == nil {
 		r = BottleCollection{}
 	}
@@ -684,8 +684,8 @@ func (ctx *ListBottleContext) OK(r BottleCollection) error {
 }
 
 // OKTiny sends a HTTP response with status code 200.
-func (ctx *ListBottleContext) OKTiny(r BottleTinyCollection) error {
-	ctx.ResponseData.Header().Set("Content-Type", "application/vnd.bottle+json; type=collection")
+func (ctx *ListbarBottleContext) OKTiny(r BottleTinyCollection) error {
+	ctx.ResponseData.Header().Set("Content-Type", "foo")
 	if r == nil {
 		r = BottleTinyCollection{}
 	}
@@ -693,13 +693,88 @@ func (ctx *ListBottleContext) OKTiny(r BottleTinyCollection) error {
 }
 
 // BadRequest sends a HTTP response with status code 400.
-func (ctx *ListBottleContext) BadRequest(r error) error {
+func (ctx *ListbarBottleContext) BadRequest(r error) error {
 	ctx.ResponseData.Header().Set("Content-Type", "application/vnd.goa.error")
 	return ctx.ResponseData.Service.Send(ctx.Context, 400, r)
 }
 
 // NotFound sends a HTTP response with status code 404.
-func (ctx *ListBottleContext) NotFound() error {
+func (ctx *ListbarBottleContext) NotFound() error {
+	ctx.ResponseData.WriteHeader(404)
+	return nil
+}
+
+// ListfooBottleContext provides the bottle listfoo action context.
+type ListfooBottleContext struct {
+	context.Context
+	*goa.ResponseData
+	*goa.RequestData
+	AccountID int
+	Years     []int
+}
+
+// NewListfooBottleContext parses the incoming request URL and body, performs validations and creates the
+// context used by the bottle controller listfoo action.
+func NewListfooBottleContext(ctx context.Context, r *http.Request, service *goa.Service) (*ListfooBottleContext, error) {
+	var err error
+	resp := goa.ContextResponse(ctx)
+	resp.Service = service
+	req := goa.ContextRequest(ctx)
+	req.Request = r
+	rctx := ListfooBottleContext{Context: ctx, ResponseData: resp, RequestData: req}
+	paramAccountID := req.Params["accountID"]
+	if len(paramAccountID) > 0 {
+		rawAccountID := paramAccountID[0]
+		if accountID, err2 := strconv.Atoi(rawAccountID); err2 == nil {
+			rctx.AccountID = accountID
+		} else {
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("accountID", rawAccountID, "integer"))
+		}
+		if rctx.AccountID < 1 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+	}
+	paramYears := req.Params["years"]
+	if len(paramYears) > 0 {
+		params := make([]int, len(paramYears))
+		for i, rawYears := range paramYears {
+			if years, err2 := strconv.Atoi(rawYears); err2 == nil {
+				params[i] = years
+			} else {
+				err = goa.MergeErrors(err, goa.InvalidParamTypeError("years", rawYears, "integer"))
+			}
+		}
+		rctx.Years = params
+	}
+	return &rctx, err
+}
+
+// OK sends a HTTP response with status code 200.
+func (ctx *ListfooBottleContext) OK(r BottleCollection) error {
+	ctx.ResponseData.Header().Set("Content-Type", "foo")
+	if r == nil {
+		r = BottleCollection{}
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 200, r)
+}
+
+// OKTiny sends a HTTP response with status code 200.
+func (ctx *ListfooBottleContext) OKTiny(r BottleTinyCollection) error {
+	ctx.ResponseData.Header().Set("Content-Type", "foo")
+	if r == nil {
+		r = BottleTinyCollection{}
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 200, r)
+}
+
+// BadRequest sends a HTTP response with status code 400.
+func (ctx *ListfooBottleContext) BadRequest(r error) error {
+	ctx.ResponseData.Header().Set("Content-Type", "application/vnd.goa.error")
+	return ctx.ResponseData.Service.Send(ctx.Context, 400, r)
+}
+
+// NotFound sends a HTTP response with status code 404.
+func (ctx *ListfooBottleContext) NotFound() error {
 	ctx.ResponseData.WriteHeader(404)
 	return nil
 }

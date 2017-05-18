@@ -82,9 +82,9 @@ var _ = Resource("bottle", func() {
 	BasePath("bottles")
 	Parent("account")
 
-	Action("list", func() {
+	Action("listfoo", func() {
 		Routing(
-			GET(""),
+			GET("/foo"),
 		)
 		Description("List all bottles in account optionally filtering by year")
 		Params(func() {
@@ -92,6 +92,26 @@ var _ = Resource("bottle", func() {
 		})
 		Response(OK, func() {
 			Media(CollectionOf(Bottle, func() {
+				ContentType("foo")
+				View("default")
+				View("tiny")
+			}))
+		})
+		Response(NotFound)
+		Response(BadRequest, ErrorMedia)
+	})
+
+	Action("listbar", func() {
+		Routing(
+			GET("/bar"),
+		)
+		Description("List all bottles in account optionally filtering by year")
+		Params(func() {
+			Param("years", ArrayOf(Integer), "Filter by years")
+		})
+		Response(OK, func() {
+			Media(CollectionOf(Bottle, func() {
+				ContentType("bar")
 				View("default")
 				View("tiny")
 			}))

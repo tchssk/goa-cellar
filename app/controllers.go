@@ -203,7 +203,8 @@ type BottleController interface {
 	goa.Muxer
 	Create(*CreateBottleContext) error
 	Delete(*DeleteBottleContext) error
-	List(*ListBottleContext) error
+	Listbar(*ListbarBottleContext) error
+	Listfoo(*ListfooBottleContext) error
 	Rate(*RateBottleContext) error
 	Show(*ShowBottleContext) error
 	Update(*UpdateBottleContext) error
@@ -216,6 +217,8 @@ func MountBottleController(service *goa.Service, ctrl BottleController) {
 	var h goa.Handler
 	service.Mux.Handle("OPTIONS", "/cellar/accounts/:accountID/bottles", ctrl.MuxHandler("preflight", handleBottleOrigin(cors.HandlePreflight()), nil))
 	service.Mux.Handle("OPTIONS", "/cellar/accounts/:accountID/bottles/:bottleID", ctrl.MuxHandler("preflight", handleBottleOrigin(cors.HandlePreflight()), nil))
+	service.Mux.Handle("OPTIONS", "/cellar/accounts/:accountID/bottles/bar", ctrl.MuxHandler("preflight", handleBottleOrigin(cors.HandlePreflight()), nil))
+	service.Mux.Handle("OPTIONS", "/cellar/accounts/:accountID/bottles/foo", ctrl.MuxHandler("preflight", handleBottleOrigin(cors.HandlePreflight()), nil))
 	service.Mux.Handle("OPTIONS", "/cellar/accounts/:accountID/bottles/:bottleID/actions/rate", ctrl.MuxHandler("preflight", handleBottleOrigin(cors.HandlePreflight()), nil))
 	service.Mux.Handle("OPTIONS", "/cellar/accounts/:accountID/bottles/:bottleID/watch", ctrl.MuxHandler("preflight", handleBottleOrigin(cors.HandlePreflight()), nil))
 
@@ -263,15 +266,31 @@ func MountBottleController(service *goa.Service, ctrl BottleController) {
 			return err
 		}
 		// Build the context
-		rctx, err := NewListBottleContext(ctx, req, service)
+		rctx, err := NewListbarBottleContext(ctx, req, service)
 		if err != nil {
 			return err
 		}
-		return ctrl.List(rctx)
+		return ctrl.Listbar(rctx)
 	}
 	h = handleBottleOrigin(h)
-	service.Mux.Handle("GET", "/cellar/accounts/:accountID/bottles", ctrl.MuxHandler("list", h, nil))
-	service.LogInfo("mount", "ctrl", "Bottle", "action", "List", "route", "GET /cellar/accounts/:accountID/bottles")
+	service.Mux.Handle("GET", "/cellar/accounts/:accountID/bottles/bar", ctrl.MuxHandler("listbar", h, nil))
+	service.LogInfo("mount", "ctrl", "Bottle", "action", "Listbar", "route", "GET /cellar/accounts/:accountID/bottles/bar")
+
+	h = func(ctx context.Context, rw http.ResponseWriter, req *http.Request) error {
+		// Check if there was an error loading the request
+		if err := goa.ContextError(ctx); err != nil {
+			return err
+		}
+		// Build the context
+		rctx, err := NewListfooBottleContext(ctx, req, service)
+		if err != nil {
+			return err
+		}
+		return ctrl.Listfoo(rctx)
+	}
+	h = handleBottleOrigin(h)
+	service.Mux.Handle("GET", "/cellar/accounts/:accountID/bottles/foo", ctrl.MuxHandler("listfoo", h, nil))
+	service.LogInfo("mount", "ctrl", "Bottle", "action", "Listfoo", "route", "GET /cellar/accounts/:accountID/bottles/foo")
 
 	h = func(ctx context.Context, rw http.ResponseWriter, req *http.Request) error {
 		// Check if there was an error loading the request

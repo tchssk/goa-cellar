@@ -108,24 +108,24 @@ func (c *Client) NewDeleteBottleRequest(ctx context.Context, path string) (*http
 	return req, nil
 }
 
-// ListBottlePath computes a request path to the list action of bottle.
-func ListBottlePath(accountID int) string {
+// ListbarBottlePath computes a request path to the listbar action of bottle.
+func ListbarBottlePath(accountID int) string {
 	param0 := strconv.Itoa(accountID)
 
-	return fmt.Sprintf("/cellar/accounts/%s/bottles", param0)
+	return fmt.Sprintf("/cellar/accounts/%s/bottles/bar", param0)
 }
 
 // List all bottles in account optionally filtering by year
-func (c *Client) ListBottle(ctx context.Context, path string, years []int) (*http.Response, error) {
-	req, err := c.NewListBottleRequest(ctx, path, years)
+func (c *Client) ListbarBottle(ctx context.Context, path string, years []int) (*http.Response, error) {
+	req, err := c.NewListbarBottleRequest(ctx, path, years)
 	if err != nil {
 		return nil, err
 	}
 	return c.Client.Do(ctx, req)
 }
 
-// NewListBottleRequest create the request corresponding to the list action endpoint of the bottle resource.
-func (c *Client) NewListBottleRequest(ctx context.Context, path string, years []int) (*http.Request, error) {
+// NewListbarBottleRequest create the request corresponding to the listbar action endpoint of the bottle resource.
+func (c *Client) NewListbarBottleRequest(ctx context.Context, path string, years []int) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
@@ -133,8 +133,44 @@ func (c *Client) NewListBottleRequest(ctx context.Context, path string, years []
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	for _, p := range years {
-		tmp14 := strconv.Itoa(p)
-		values.Add("years", tmp14)
+		tmp15 := strconv.Itoa(p)
+		values.Add("years", tmp15)
+	}
+	u.RawQuery = values.Encode()
+	req, err := http.NewRequest("GET", u.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// ListfooBottlePath computes a request path to the listfoo action of bottle.
+func ListfooBottlePath(accountID int) string {
+	param0 := strconv.Itoa(accountID)
+
+	return fmt.Sprintf("/cellar/accounts/%s/bottles/foo", param0)
+}
+
+// List all bottles in account optionally filtering by year
+func (c *Client) ListfooBottle(ctx context.Context, path string, years []int) (*http.Response, error) {
+	req, err := c.NewListfooBottleRequest(ctx, path, years)
+	if err != nil {
+		return nil, err
+	}
+	return c.Client.Do(ctx, req)
+}
+
+// NewListfooBottleRequest create the request corresponding to the listfoo action endpoint of the bottle resource.
+func (c *Client) NewListfooBottleRequest(ctx context.Context, path string, years []int) (*http.Request, error) {
+	scheme := c.Scheme
+	if scheme == "" {
+		scheme = "http"
+	}
+	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
+	values := u.Query()
+	for _, p := range years {
+		tmp16 := strconv.Itoa(p)
+		values.Add("years", tmp16)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)

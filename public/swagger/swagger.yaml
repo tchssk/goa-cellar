@@ -581,43 +581,6 @@ paths:
       tags:
       - account
   /cellar/accounts/{accountID}/bottles:
-    get:
-      description: List all bottles in account optionally filtering by year
-      operationId: bottle#list
-      parameters:
-      - description: Account ID
-        in: path
-        minimum: 1
-        name: accountID
-        required: true
-        type: integer
-      - collectionFormat: multi
-        description: Filter by years
-        in: query
-        items:
-          type: integer
-        name: years
-        required: false
-        type: array
-      produces:
-      - application/vnd.goa.error
-      - application/vnd.bottle+json; type=collection
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/BottleCollection'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/error'
-        "404":
-          description: Not Found
-      schemes:
-      - http
-      summary: list bottle
-      tags:
-      - bottle
     post:
       description: Record new bottle
       operationId: bottle#create
@@ -699,8 +662,8 @@ paths:
         required: true
         type: integer
       produces:
-      - application/vnd.bottle+json
       - application/vnd.goa.error
+      - application/vnd.bottle+json
       responses:
         "200":
           description: OK
@@ -813,6 +776,82 @@ paths:
       schemes:
       - ws
       summary: watch bottle
+      tags:
+      - bottle
+  /cellar/accounts/{accountID}/bottles/bar:
+    get:
+      description: List all bottles in account optionally filtering by year
+      operationId: bottle#listbar
+      parameters:
+      - description: Account ID
+        in: path
+        minimum: 1
+        name: accountID
+        required: true
+        type: integer
+      - collectionFormat: multi
+        description: Filter by years
+        in: query
+        items:
+          type: integer
+        name: years
+        required: false
+        type: array
+      produces:
+      - application/vnd.goa.error
+      - application/vnd.bottle+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/BottleCollection'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: listbar bottle
+      tags:
+      - bottle
+  /cellar/accounts/{accountID}/bottles/foo:
+    get:
+      description: List all bottles in account optionally filtering by year
+      operationId: bottle#listfoo
+      parameters:
+      - description: Account ID
+        in: path
+        minimum: 1
+        name: accountID
+        required: true
+        type: integer
+      - collectionFormat: multi
+        description: Filter by years
+        in: query
+        items:
+          type: integer
+        name: years
+        required: false
+        type: array
+      produces:
+      - application/vnd.goa.error
+      - application/vnd.bottle+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/BottleCollection'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: listfoo bottle
       tags:
       - bottle
   /js/{filepath}:

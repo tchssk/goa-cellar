@@ -80,8 +80,17 @@ type (
 		PrettyPrint bool
 	}
 
-	// ListBottleCommand is the command line data structure for the list action of bottle
-	ListBottleCommand struct {
+	// ListbarBottleCommand is the command line data structure for the listbar action of bottle
+	ListbarBottleCommand struct {
+		// Account ID
+		AccountID int
+		// Filter by years
+		Years       []int
+		PrettyPrint bool
+	}
+
+	// ListfooBottleCommand is the command line data structure for the listfoo action of bottle
+	ListfooBottleCommand struct {
 		// Account ID
 		AccountID int
 		// Filter by years
@@ -224,7 +233,7 @@ Payload example:
 	app.AddCommand(command)
 	command = &cobra.Command{
 		Use:   "list",
-		Short: `list action`,
+		Short: `Retrieve all accounts.`,
 	}
 	tmp6 := new(ListAccountCommand)
 	sub = &cobra.Command{
@@ -235,9 +244,14 @@ Payload example:
 	tmp6.RegisterFlags(sub, c)
 	sub.PersistentFlags().BoolVar(&tmp6.PrettyPrint, "pp", false, "Pretty print response body")
 	command.AddCommand(sub)
-	tmp7 := new(ListBottleCommand)
+	app.AddCommand(command)
+	command = &cobra.Command{
+		Use:   "listbar",
+		Short: `List all bottles in account optionally filtering by year`,
+	}
+	tmp7 := new(ListbarBottleCommand)
 	sub = &cobra.Command{
-		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles"]`,
+		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/bar"]`,
 		Short: ``,
 		RunE:  func(cmd *cobra.Command, args []string) error { return tmp7.Run(c, args) },
 	}
@@ -246,10 +260,24 @@ Payload example:
 	command.AddCommand(sub)
 	app.AddCommand(command)
 	command = &cobra.Command{
+		Use:   "listfoo",
+		Short: `List all bottles in account optionally filtering by year`,
+	}
+	tmp8 := new(ListfooBottleCommand)
+	sub = &cobra.Command{
+		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/foo"]`,
+		Short: ``,
+		RunE:  func(cmd *cobra.Command, args []string) error { return tmp8.Run(c, args) },
+	}
+	tmp8.RegisterFlags(sub, c)
+	sub.PersistentFlags().BoolVar(&tmp8.PrettyPrint, "pp", false, "Pretty print response body")
+	command.AddCommand(sub)
+	app.AddCommand(command)
+	command = &cobra.Command{
 		Use:   "rate",
 		Short: ``,
 	}
-	tmp8 := new(RateBottleCommand)
+	tmp9 := new(RateBottleCommand)
 	sub = &cobra.Command{
 		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/BOTTLEID/actions/rate"]`,
 		Short: ``,
@@ -260,40 +288,40 @@ Payload example:
 {
    "rating": 8279792463320557696
 }`,
-		RunE: func(cmd *cobra.Command, args []string) error { return tmp8.Run(c, args) },
+		RunE: func(cmd *cobra.Command, args []string) error { return tmp9.Run(c, args) },
 	}
-	tmp8.RegisterFlags(sub, c)
-	sub.PersistentFlags().BoolVar(&tmp8.PrettyPrint, "pp", false, "Pretty print response body")
+	tmp9.RegisterFlags(sub, c)
+	sub.PersistentFlags().BoolVar(&tmp9.PrettyPrint, "pp", false, "Pretty print response body")
 	command.AddCommand(sub)
 	app.AddCommand(command)
 	command = &cobra.Command{
 		Use:   "show",
 		Short: `show action`,
 	}
-	tmp9 := new(ShowAccountCommand)
+	tmp10 := new(ShowAccountCommand)
 	sub = &cobra.Command{
 		Use:   `account ["/cellar/accounts/ACCOUNTID"]`,
-		Short: ``,
-		RunE:  func(cmd *cobra.Command, args []string) error { return tmp9.Run(c, args) },
-	}
-	tmp9.RegisterFlags(sub, c)
-	sub.PersistentFlags().BoolVar(&tmp9.PrettyPrint, "pp", false, "Pretty print response body")
-	command.AddCommand(sub)
-	tmp10 := new(ShowBottleCommand)
-	sub = &cobra.Command{
-		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/BOTTLEID"]`,
 		Short: ``,
 		RunE:  func(cmd *cobra.Command, args []string) error { return tmp10.Run(c, args) },
 	}
 	tmp10.RegisterFlags(sub, c)
 	sub.PersistentFlags().BoolVar(&tmp10.PrettyPrint, "pp", false, "Pretty print response body")
 	command.AddCommand(sub)
+	tmp11 := new(ShowBottleCommand)
+	sub = &cobra.Command{
+		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/BOTTLEID"]`,
+		Short: ``,
+		RunE:  func(cmd *cobra.Command, args []string) error { return tmp11.Run(c, args) },
+	}
+	tmp11.RegisterFlags(sub, c)
+	sub.PersistentFlags().BoolVar(&tmp11.PrettyPrint, "pp", false, "Pretty print response body")
+	command.AddCommand(sub)
 	app.AddCommand(command)
 	command = &cobra.Command{
 		Use:   "update",
 		Short: `update action`,
 	}
-	tmp11 := new(UpdateAccountCommand)
+	tmp12 := new(UpdateAccountCommand)
 	sub = &cobra.Command{
 		Use:   `account ["/cellar/accounts/ACCOUNTID"]`,
 		Short: ``,
@@ -304,12 +332,12 @@ Payload example:
 {
    "name": "Sapiente expedita sit laboriosam placeat ducimus doloribus."
 }`,
-		RunE: func(cmd *cobra.Command, args []string) error { return tmp11.Run(c, args) },
+		RunE: func(cmd *cobra.Command, args []string) error { return tmp12.Run(c, args) },
 	}
-	tmp11.RegisterFlags(sub, c)
-	sub.PersistentFlags().BoolVar(&tmp11.PrettyPrint, "pp", false, "Pretty print response body")
+	tmp12.RegisterFlags(sub, c)
+	sub.PersistentFlags().BoolVar(&tmp12.PrettyPrint, "pp", false, "Pretty print response body")
 	command.AddCommand(sub)
-	tmp12 := new(UpdateBottleCommand)
+	tmp13 := new(UpdateBottleCommand)
 	sub = &cobra.Command{
 		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/BOTTLEID"]`,
 		Short: ``,
@@ -328,24 +356,24 @@ Payload example:
    "vineyard": "Asti",
    "vintage": 2012
 }`,
-		RunE: func(cmd *cobra.Command, args []string) error { return tmp12.Run(c, args) },
+		RunE: func(cmd *cobra.Command, args []string) error { return tmp13.Run(c, args) },
 	}
-	tmp12.RegisterFlags(sub, c)
-	sub.PersistentFlags().BoolVar(&tmp12.PrettyPrint, "pp", false, "Pretty print response body")
+	tmp13.RegisterFlags(sub, c)
+	sub.PersistentFlags().BoolVar(&tmp13.PrettyPrint, "pp", false, "Pretty print response body")
 	command.AddCommand(sub)
 	app.AddCommand(command)
 	command = &cobra.Command{
 		Use:   "watch",
 		Short: `Retrieve bottle with given id`,
 	}
-	tmp13 := new(WatchBottleCommand)
+	tmp14 := new(WatchBottleCommand)
 	sub = &cobra.Command{
 		Use:   `bottle ["/cellar/accounts/ACCOUNTID/bottles/BOTTLEID/watch"]`,
 		Short: ``,
-		RunE:  func(cmd *cobra.Command, args []string) error { return tmp13.Run(c, args) },
+		RunE:  func(cmd *cobra.Command, args []string) error { return tmp14.Run(c, args) },
 	}
-	tmp13.RegisterFlags(sub, c)
-	sub.PersistentFlags().BoolVar(&tmp13.PrettyPrint, "pp", false, "Pretty print response body")
+	tmp14.RegisterFlags(sub, c)
+	sub.PersistentFlags().BoolVar(&tmp14.PrettyPrint, "pp", false, "Pretty print response body")
 	command.AddCommand(sub)
 	app.AddCommand(command)
 
@@ -775,17 +803,17 @@ func (cmd *DeleteBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Clien
 	cc.Flags().IntVar(&cmd.BottleID, "bottleID", bottleID, ``)
 }
 
-// Run makes the HTTP request corresponding to the ListBottleCommand command.
-func (cmd *ListBottleCommand) Run(c *client.Client, args []string) error {
+// Run makes the HTTP request corresponding to the ListbarBottleCommand command.
+func (cmd *ListbarBottleCommand) Run(c *client.Client, args []string) error {
 	var path string
 	if len(args) > 0 {
 		path = args[0]
 	} else {
-		path = fmt.Sprintf("/cellar/accounts/%v/bottles", cmd.AccountID)
+		path = fmt.Sprintf("/cellar/accounts/%v/bottles/bar", cmd.AccountID)
 	}
 	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
 	ctx := goa.WithLogger(context.Background(), logger)
-	resp, err := c.ListBottle(ctx, path, cmd.Years)
+	resp, err := c.ListbarBottle(ctx, path, cmd.Years)
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -796,7 +824,35 @@ func (cmd *ListBottleCommand) Run(c *client.Client, args []string) error {
 }
 
 // RegisterFlags registers the command flags with the command line.
-func (cmd *ListBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
+func (cmd *ListbarBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
+	var accountID int
+	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
+	var years []int
+	cc.Flags().IntSliceVar(&cmd.Years, "years", years, `Filter by years`)
+}
+
+// Run makes the HTTP request corresponding to the ListfooBottleCommand command.
+func (cmd *ListfooBottleCommand) Run(c *client.Client, args []string) error {
+	var path string
+	if len(args) > 0 {
+		path = args[0]
+	} else {
+		path = fmt.Sprintf("/cellar/accounts/%v/bottles/foo", cmd.AccountID)
+	}
+	logger := goa.NewLogger(log.New(os.Stderr, "", log.LstdFlags))
+	ctx := goa.WithLogger(context.Background(), logger)
+	resp, err := c.ListfooBottle(ctx, path, cmd.Years)
+	if err != nil {
+		goa.LogError(ctx, "failed", "err", err)
+		return err
+	}
+
+	goaclient.HandleResponse(c.Client, resp, cmd.PrettyPrint)
+	return nil
+}
+
+// RegisterFlags registers the command flags with the command line.
+func (cmd *ListfooBottleCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
 	var accountID int
 	cc.Flags().IntVar(&cmd.AccountID, "accountID", accountID, `Account ID`)
 	var years []int

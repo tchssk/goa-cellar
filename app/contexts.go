@@ -208,6 +208,9 @@ func NewShowAccountContext(ctx context.Context, r *http.Request, service *goa.Se
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
 		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
+		}
 	}
 	return &rctx, err
 }
@@ -355,6 +358,9 @@ func NewCreateBottleContext(ctx context.Context, r *http.Request, service *goa.S
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
 		}
 	}
 	return &rctx, err
@@ -602,6 +608,9 @@ func NewDeleteBottleContext(ctx context.Context, r *http.Request, service *goa.S
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
 		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
+		}
 	}
 	paramBottleID := req.Params["bottleID"]
 	if len(paramBottleID) > 0 {
@@ -661,6 +670,9 @@ func NewListBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
 		}
 	}
 	paramYears := req.Params["years"]
@@ -737,6 +749,9 @@ func NewRateBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
 		}
 	}
 	paramBottleID := req.Params["bottleID"]
@@ -848,6 +863,9 @@ func NewShowBottleContext(ctx context.Context, r *http.Request, service *goa.Ser
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
 		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
+		}
 	}
 	paramBottleID := req.Params["bottleID"]
 	if len(paramBottleID) > 0 {
@@ -921,6 +939,9 @@ func NewUpdateBottleContext(ctx context.Context, r *http.Request, service *goa.S
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
 		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
+		}
 	}
 	paramBottleID := req.Params["bottleID"]
 	if len(paramBottleID) > 0 {
@@ -980,6 +1001,9 @@ func NewWatchBottleContext(ctx context.Context, r *http.Request, service *goa.Se
 		}
 		if rctx.AccountID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 1, true))
+		}
+		if rctx.AccountID > 4294967295 {
+			err = goa.MergeErrors(err, goa.InvalidRangeError(`accountID`, rctx.AccountID, 4294967295, false))
 		}
 	}
 	paramBottleID := req.Params["bottleID"]

@@ -521,6 +521,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -581,6 +582,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -618,6 +620,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -654,6 +657,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -684,6 +688,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -716,6 +721,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -751,6 +757,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true
@@ -787,6 +794,7 @@ paths:
       parameters:
       - description: Account ID
         in: path
+        maximum: 4.2949673e+09
         minimum: 1
         name: accountID
         required: true

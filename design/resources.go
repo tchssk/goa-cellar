@@ -26,6 +26,7 @@ var _ = Resource("account", func() {
 		Params(func() {
 			Param("accountID", Integer, "Account ID", func() {
 				Minimum(1)
+				Maximum(4294967295)
 			})
 		})
 		Response(OK)

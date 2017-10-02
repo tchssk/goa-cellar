@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"time"
 
 	"github.com/goadesign/goa"
@@ -67,6 +68,8 @@ func (b *AccountController) List(c *app.ListAccountContext) error {
 
 // Show retrieves the account with the given id.
 func (b *AccountController) Show(c *app.ShowAccountContext) error {
+	u := uint32(c.AccountID)
+	log.Println(u)
 	account, ok := b.db.GetAccount(c.AccountID)
 	if !ok {
 		return c.NotFound()
